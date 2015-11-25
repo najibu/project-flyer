@@ -19,7 +19,7 @@
 	<label for="country">Country:</label>
 	<select name="country" class="form-control" id="country">
 		@foreach ($countries::all() as $country => $code)
-		<option value="{{ $code }}">{{ $country }}</option>
+			<option value="{{ $code }}">{{ $country }}</option>
 		@endforeach
 	</select>
 </div>
