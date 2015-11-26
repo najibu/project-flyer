@@ -21,7 +21,7 @@ class CreateFlyerPhotosTable extends Migration
                   ->on('flyers')
                   ->onDelete('cascade');
 
-            $table->string('photo');
+            $table->string('path');
 
             $table->timestamps();
         });
