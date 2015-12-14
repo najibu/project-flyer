@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Flyer;
-use App\Photo;
 // use App\Http\Controllers\Traits\AuthorizesUsers;
-use App\Http\Requests\AddPhotoRequest;
+
 use App\Http\Requests\FlyerRequest;
 use App\Http\Controllers\Controller;
 
@@ -52,16 +51,15 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {
-        // persist the flyer
-        Flyer::create($request->all());
+        // attach a user to a flyer
+        $flyer = $this->user->publish(
+            new Flyer($request->all())
+        ); 
 
         // flash messaging
-        // flash('Success!' ,'Your flyer has been created!');
-
         flash()->success('Woohoo', 'Flyer successfully created!');
 
-        // redirect to landing page
-        return redirect()->back(); // temporary
+        return redirect(flyer_path($flyer)); 
     }
 
     /**
@@ -77,20 +75,7 @@ class FlyersController extends Controller
         return view('flyers.show', compact('flyer'));
     }
 
-    /**
-     * Apply a photo to the referenced flyer.
-     *
-     *
-     * @param  string  $zip
-     * @param  string  $street
-     * @param  AddPhotoRequest  $request
-     */
-    public function addPhoto($zip, $street, AddPhotoRequest $request)
-    {
-        $photo = Photo::fromFile($request->file('photo'));
-
-        Flyer::locatedAt($zip, $street)->addPhoto($photo);    
-    } 
+    
 
     /**
      * Show the form for editing the specified resource.

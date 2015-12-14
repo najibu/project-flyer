@@ -77,4 +77,5 @@ class Flyer extends Model
     {
         return $this->user == $user_id;
     }
+
 }
