@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use App\Flyer;
 
-class ChangeFlyerRequest extends Request
+class AddPhotoRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,4 +32,5 @@ class ChangeFlyerRequest extends Request
             'photo' => 'required|mimes:jpg,jpeg,png,bmp'
         ];
     }
+
 }
