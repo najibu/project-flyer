@@ -6,10 +6,10 @@ use Image;
 
 class Thumbnail 
 {
-	public function make()
+	public function make($src, $destination)
 	{
-		Image::make($this->path)
-					->fit(200)
-					->save($this->thumnail_path);
+		Image::make($src)
+				->fit(200)
+				->save($destination);
 	}
 }

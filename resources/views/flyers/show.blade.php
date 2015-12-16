@@ -17,7 +17,9 @@
 				<div class="row">
 					@foreach ($set as $photo)
 						<div class="col-md-3 gallery_image">
-							<img src="/{{ $photo->thumbnail_path }}" alt="">
+							<a href="//{{ $photo->path }}" data-lity>
+								<img src="/{{ $photo->thumbnail_path }}" alt="">
+							</a>
 						</div>
 					@endforeach
 				</div>
@@ -26,7 +28,7 @@
 			@if ($user && $user->owns($flyer))
 				<hr>
 
-				<form id="addPhotoForm" 
+				<form id="addPhotosForm" 
 					  action="{{ route('store_photo_path', [$flyer->zip, $flyer->street]) }}" 
 					  method="POST" 
 					  class="dropzone"
@@ -43,10 +45,10 @@
 @section('scripts.footer')
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/dropzone.js'></script>
 	<script>
-		Dropzone.options.addPhotoForm = {
+		Dropzone.options.addPhotosForm = {
 			paramName: 'photo',
 			maxFilesize: 3,
-			acceptedFiles: '.jpg, .jpeg, .png, .bmp'
+			acceptedFiles: '.jpg, .jpeg, .png, .bmp',
 		};
 	</script>
 @stop

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Photo extends Model
 {
@@ -32,18 +33,17 @@ class Photo extends Model
     }
 
 
-    public function baseDir()
-    {
-        return 'image/flyers';
-    }
-
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = $name;
 
-        $this->path = $this->baseDir() . '/'.$name;
-        $this->thumnail_path = $this->baseDir() . '/tn-'.$name;
-    }
+        $this->path = $this->baseDir() . '/' . $name;
+        $this->thumbnail_path = $this->baseDir()  . '/tn-' . $name;
+    }  
 
+    public function baseDir()
+    {
+        return 'images/photos';
+    }
     
 }

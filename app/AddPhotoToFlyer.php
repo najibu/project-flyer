@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Flyer;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -41,16 +40,21 @@ class AddPhotoToFlyer
 
 	protected function makePhoto()
 	{
-		return new Photo (['name' => $this->makeFileName()]);
+		return new Photo(['name' => $this->makeFileName()]);
 	}
 
+	/**
+     * Make a file name, based on the uploadedFile file .
+     *
+     * @return string
+     */
 	protected function makeFileName()
     {
         $name = sha1(
-            time() . $this->file->getClientOriginalName()
+            time() . $this->file->getClientOriginalName() // time.foo.jpg
         );
 
-        $extension = $this->file->getClientOriginalExtension();
+        $extension = $this->file->getClientOriginalExtension(); //jpg
 
         return "{$name} . {$extension}";
     }

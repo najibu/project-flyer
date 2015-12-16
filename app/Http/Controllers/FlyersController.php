@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Flyer;
 // use App\Http\Controllers\Traits\AuthorizesUsers;
-
+use App\User;
 use App\Http\Requests\FlyerRequest;
 use App\Http\Controllers\Controller;
 
