@@ -1,15 +1,15 @@
 <?php
 
-namespace App;
+namespace app;
 
 use Image;
 
-class Thumbnail 
+class Thumbnail
 {
 	public function make($src, $destination)
 	{
 		Image::make($src)
-				->fit(200)
-				->save($destination);
+			->fit(200)
+			->save($destination);
 	}
 }

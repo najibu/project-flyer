@@ -25,9 +25,9 @@
 							<button type="submit">Delete</button>							
 						</form> -->
 
-						{!! link_to('Delete', '/photos/{$photo->id}', 'DELETE') !!}
+							{!! link_to('Delete', "/photos/{$photo->id}", 'DELETE') !!}
 
-							<a href="//{{ $photo->path }}" data-lity>
+							<a href="/{{ $photo->path }}" data-lity>
 								<img src="/{{ $photo->thumbnail_path }}" alt="">
 							</a>
 						</div>
@@ -57,7 +57,7 @@
 	<script>
 		Dropzone.options.addPhotosForm = {
 			paramName: 'photo',
-			maxFilesize: 3,
+			maxFilesize: 3, // MB
 			acceptedFiles: '.jpg, .jpeg, .png, .bmp',
 		};
 	</script>

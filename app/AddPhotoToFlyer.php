@@ -1,23 +1,31 @@
 <?php
-
 namespace App;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
-* 
-*/
 class AddPhotoToFlyer
 {
+	/**
+	 * The Flyer instance.
+	 *
+	 * @var Flyer
+	 */
 	protected $flyer;
 
 	/**
-     * The UploadedFile file instance .
-     *
-     * @var UploadedFile
-     */
+	 * The UploadedFile instance.
+	 *
+	 * @var UploadedFile
+	 */
 	protected $file;
-	
+
+	/**
+	 * Create a new AddPhotoToFlyer from object
+	 *
+	 * @param Flyer $flyer
+	 * @param UploadedFile $file
+	 * @param Thumbnail|null $thumbnail
+	 */
 	public function __construct(Flyer $flyer, UploadedFile $file, Thumbnail $thumbnail = null)
 	{
 		$this->flyer = $flyer;
@@ -25,37 +33,46 @@ class AddPhotoToFlyer
 		$this->thumbnail = $thumbnail ?: new Thumbnail;
 	}
 
+	/**
+	 * Process the form.
+	 *
+	 * @return void
+	 */
 	public function save()
 	{
-		// Attach the photo to the flyer
+		// attach the photo to the flyer
 		$photo = $this->flyer->addPhoto($this->makePhoto());
 
-		// Move the photo to the images folder
+		// move the photo to the image folder
 		$this->file->move($photo->baseDir(), $photo->name);
 
-		// generate a thumbnail 
+		// generate a thumbnail
 		$this->thumbnail->make($photo->path, $photo->thumbnail_path);
-    
-	}
-
-	protected function makePhoto()
-	{
-		return new Photo(['name' => $this->makeFileName()]);
 	}
 
 	/**
-     * Make a file name, based on the uploadedFile file .
-     *
-     * @return string
-     */
-	protected function makeFileName()
-    {
-        $name = sha1(
-            time() . $this->file->getClientOriginalName() // time.foo.jpg
-        );
+	 * Make a new photo instance.
+	 *
+	 * @return Photo
+	 */
+	public function makePhoto()
+	{
+		return new Photo(['name' => $this->makeFileName()]);
+	}
+	
+	/**
+	 * Make a file name, based on the uploaded file.
+	 *
+	 * @return string
+	 */
+	public function makeFileName()
+	{
+		$name = sha1(
+			time() . $this->file->getClientOriginalName()
+		);
 
-        $extension = $this->file->getClientOriginalExtension(); //jpg
+		$extension = $this->file->getClientOriginalExtension();
 
-        return "{$name} . {$extension}";
-    }
+		return "{$name}.{$extension}";
+	}
 }
