@@ -32,6 +32,10 @@ class Photo extends Model
     	return $this->belongsTo('App\Flyer');
     }
 
+    public function baseDir()
+    {
+        return 'images/photos';
+    }
 
     public function setNameAttribute($name)
     {
@@ -41,9 +45,14 @@ class Photo extends Model
         $this->thumbnail_path = $this->baseDir()  . '/tn-' . $name;
     }  
 
-    public function baseDir()
+    public function delete()
     {
-        return 'images/photos';
+        \File::delete([
+            $this->path,
+            $this->thumbnail_path
+        ]);
+        
+        parent::delete();
     }
     
 }
